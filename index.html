@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #movieForm {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #intentCode {
+            margin-top: 20px;
+            background-color: #f9f9f9;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow-wrap: break-word;
+        }
+
+        .copy-button {
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .copy-button:hover {
+            background-color: #005f6b;
+        }
+    </style>
+</head>
+<body>
+    <form id="movieForm">
+        <label for="movieLink">رابط الفيلم:</label><br>
+        <input type="text" id="movieLink" name="movieLink"><br>
+        <label for="movieTitle">تايتل الفيلم:</label><br>
+        <input type="text" id="movieTitle" name="movieTitle"><br>
+        <button type="button" onclick="generateIntent()">Generate Intent</button>
+        <div id="intentCode"></div>
+        <button class="copy-button" onclick="copyCode()">نسخ</button>
+    </form>
+
+    <script>
+        function generateIntent() {
+            var link = document.getElementById("movieLink").value;
+            var title = document.getElementById("movieTitle").value;
+            var intentCode = `intent:${link}#Intent;package=com.mxtech.videoplayer.ad;S.title=${title};end`;
+            document.getElementById("intentCode").innerText = intentCode;
+        }
+
+        function copyCode() {
+            var copyText = document.getElementById("intentCode");
+            var range = document.createRange();
+            range.selectNode(copyText);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand("copy");
+            window.getSelection().removeAllRanges();
+            alert("تم نسخ الكود بنجاح!");
+        }
+    </script>
+</body>
+</html>
